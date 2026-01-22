@@ -47,4 +47,3 @@ android.release_artifact = apk
 
 # (str) The format used to package the app for debug mode (apk or aar)
 android.debug_artifact = apk
-
