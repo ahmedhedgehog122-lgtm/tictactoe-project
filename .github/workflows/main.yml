@@ -1,50 +1,13 @@
 name: Build APK
-
-on:
-  push:
-    branches: [ "main" ]
-  workflow_dispatch:
-
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Set up Java 17
-      uses: actions/setup-java@v3
-      with:
-        distribution: temurin
-        java-version: 17
-
-    - name: Install system dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y \
-        python3-pip \
-        git \
-        zip unzip \
-        build-essential \
-        autoconf \
-        libtool \
-        pkg-config \
-        zlib1g-dev \
-        libncurses5-dev \
-        libncursesw5-dev \
-        libffi-dev \
-        libssl-dev \
-        cmake
-
-    - name: Install Buildozer
-      run: |
-        python3 -m pip install --upgrade pip
-        pip3 install buildozer cython
-
-    - name: Build APK
-      run: |
-        buildozer android debug
-
-    - name: Upload APK
-      uses
+      - uses: actions/checkout@v2
+      - name: Build with Buildozer
+        uses: ArtemSerebriennikov/buildozer-action@v1
+        with:
+          buildozer_version: master
+          python_version: 3.11
+          
